@@ -1,0 +1,926 @@
+/* Базовые переменные для цветов */
+:root {
+    --bg-color: #1A1A1A;
+    --text-color: #FBFBFB;
+    --accent-color: #D60608; /* Фирменный красный PokerOK */
+    --card-bg-color: #2C2C2C;
+    --header-bg-color: rgba(26, 26, 26, 0.9); /* Полупрозрачный фон для хедера */
+    --border-color: #444;
+}
+
+/* --- ИЗМЕНЕНИЕ: Глобальный фикс для горизонтального скролла --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden; /* --- ДОБАВЛЕНО: Принудительно убираем горизонтальный скролл на всем HTML --- */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    line-height: 1.6;
+    /* overflow-x: hidden;  <-- Убираем отсюда, так как уже есть на html */
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    /* --- ДОБАВЛЕНО: чтобы контейнер не выходил за границы на мелких экранах --- */
+    width: 100%; 
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #FF3B3B; /* Чуть светлее красный при наведении */
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Заголовки */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
+    letter-spacing: 1px;
+    margin-top: 0;
+}
+
+h1 { font-size: 3.5rem; }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 1.8rem; }
+
+/* Секции */
+.section {
+    padding: 80px 0;
+}
+
+.section.bg-dark {
+    background-color: var(--card-bg-color);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 3rem;
+    color: var(--accent-color);
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--text-color);
+    border-radius: 2px;
+}
+
+.section-title-alt { /* Для секции с темным фоном */
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 3rem;
+    color: var(--text-color);
+}
+
+.lead-text {
+    text-align: center;
+    font-size: 1.4rem;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+}
+
+.text-center {
+    text-align: center;
+}
+.mt-40 {
+    margin-top: 40px;
+}
+
+/* Кнопки */
+.btn {
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+}
+
+.btn-primary:hover {
+    background-color: #ff0000;
+    transform: translateY(-2px);
+    color:#ffffff
+}
+
+.btn-lg {
+    padding: 18px 40px;
+    font-size: 1.5rem;
+}
+
+/* ===================================================
+   HEADER
+   =================================================== */
+.header {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--header-bg-color);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.header .logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+    max-width: 100%; /* --- ДОБАВЛЕНО --- */
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 30px;
+}
+
+.main-nav a {
+    color: var(--text-color);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.main-nav a:hover::after,
+.main-nav a.active::after {
+    width: 100%;
+}
+
+/* ===================================================
+   HERO SECTION
+   =================================================== */
+.hero {
+    position: relative;
+    background-image: url('https://cdn.jsdelivr.net/gh/files2026/oks4@main/hero-main.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    max-width: 800px;
+}
+
+.hero-content h1 {
+    font-size: 4.5rem;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* ===================================================
+   ADVANTAGES GRID
+   =================================================== */
+.advantages-grid, .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.advantage-item, .step-item {
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+}
+
+.advantage-item img, .step-item img {
+    height: 80px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.1));
+    max-width: 100%; /* --- ДОБАВЛЕНО --- */
+}
+
+.advantage-item h3, .step-item h3 {
+    font-size: 1.6rem;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+    word-break: break-word; /* --- ДОБАВЛЕНО --- */
+}
+
+.advantage-item p, .step-item p {
+    font-size: 1rem;
+    color: #ccc;
+}
+
+
+/* ===================================================
+   FOOTER
+   =================================================== */
+.footer {
+    background-color: var(--header-bg-color);
+    color: #bbb;
+    padding: 30px 0;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+.footer p {
+    margin: 5px 0;
+}
+
+/* ===================================================
+   ADAPTIVE / RESPONSIVE (Медиазапросы)
+   =================================================== */
+
+/* Для планшетов */
+@media (max-width: 992px) {
+    .section { padding: 60px 0; }
+    .section-title { font-size: 2.5rem; margin-bottom: 40px; }
+    .section-title-alt { font-size: 2.5rem; }
+    .hero { min-height: 600px; padding: 80px 0; }
+    .hero-content h1 { font-size: 3.8rem; }
+    .hero-content p { font-size: 1.3rem; }
+    .advantages-grid, .steps-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+}
+
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2rem; }
+    .hero { min-height: 550px; padding: 80px 0; }
+    .hero-content h1 { font-size: 3.5rem; }
+    .hero-content p { font-size: 1.2rem; }
+
+    .main-nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background-color: var(--header-bg-color);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        z-index: 900;
+        min-width: 200px;
+    }
+
+    .main-nav.active {
+        display: flex;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        gap: 15px;
+        text-align: right;
+    }
+
+    .main-nav a {
+        font-size: 1.2rem;
+    }
+
+    .section { padding: 50px 0; }
+    .section-title { font-size: 2.2rem; margin-bottom: 30px; }
+    .section-title-alt { font-size: 2.2rem; margin-bottom: 25px; }
+    .lead-text { font-size: 1.2rem; margin-bottom: 40px; }
+    .btn-lg { padding: 15px 30px; font-size: 1.2rem; }
+    .advantage-item, .step-item { padding: 25px; }
+    .advantage-item h3, .step-item h3 { font-size: 1.4rem; }
+}
+
+/* Для мобильных телефонов */
+@media (max-width: 480px) {
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    .hero { min-height: 450px; padding: 60px 0; }
+    .hero-content h1 { font-size: 2.8rem; }
+    .hero-content p { font-size: 1.0rem; } /* Уменьшил размер шрифта на маленьких */
+    .btn { padding: 12px 25px; font-size: 1rem; }
+
+    .section-title { font-size: 1.8rem; }
+    .section-title-alt { font-size: 1.8rem; }
+    .lead-text { font-size: 1rem; }
+    .btn-lg { padding: 12px 25px; font-size: 1rem; }
+    .advantages-grid, .steps-grid { grid-template-columns: 1fr; } /* На маленьких экранах - в один столбец */
+}
+
+/* Бургер-меню (показываем только на мобильных/планшетах) */
+.burger-menu {
+    display: none;
+    width: 30px;
+    height: 25px;
+    position: relative;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    z-index: 1001;
+}
+
+.burger-menu span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-color);
+    border-radius: 2px;
+    position: absolute;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.burger-menu span:nth-child(1) { top: 0; }
+.burger-menu span:nth-child(2) { top: 11px; }
+.burger-menu span:nth-child(3) { top: 22px; }
+
+.burger-menu.active span:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+.burger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+.burger-menu.active span:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+    .burger-menu {
+        display: block;
+    }
+}
+/* ===================================================
+   DOWNLOAD PAGE SPECIFIC STYLES
+   =================================================== */
+
+/* Hero Section for Download Page */
+.hero-download {
+    background-image: url('https://cdn.jsdelivr.net/gh/files2026/oks4@main/hero-down.webp'); /* Твой фон */
+    min-height: 550px; /* Немного меньше, чем главная */
+    padding: 80px 0;
+}
+
+.hero-download h1 {
+    font-size: 3.8rem;
+    margin-bottom: 15px;
+}
+
+.hero-download p {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+}
+
+.download-buttons {
+    display: flex;
+    flex-wrap: wrap; /* Для переноса кнопок на новую строку */
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.download-buttons .btn {
+    display: flex; /* Для выравнивания иконки и текста */
+    align-items: center;
+    padding: 15px 25px;
+    font-size: 1.3rem;
+    gap: 10px; /* Отступ между иконкой и текстом */
+}
+
+.download-buttons .btn img {
+    height: 24px; /* Размер иконок в кнопках */
+    width: auto;
+ /* filter: invert(1);  Сделает иконки белыми, если они цветные */
+}
+
+.small-text {
+    font-size: 0.9rem;
+    color: #bbb;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Platform Specific Sections */
+.platform-section {
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.platform-section .platform-icon {
+    height: 60px;
+    margin-bottom: 20px;
+}
+
+.platform-section h3 {
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.platform-section ol {
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    padding-left: 20px;
+    list-style: decimal-leading-zero; /* Номера шагов 01, 02, 03 */
+    color: #ccc;
+}
+
+.platform-section ol li {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+.platform-section ol li::marker {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+
+/* System Requirements Grid */
+.requirements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.req-item {
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+}
+
+.req-item .req-icon {
+    height: 50px;
+    margin-bottom: 15px;
+}
+
+.req-item h3 {
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.req-item ul {
+    text-align: left;
+    margin: 0 auto;
+    padding-left: 20px;
+    color: #ccc;
+    font-size: 1rem;
+}
+
+.req-item ul li {
+    margin-bottom: 8px;
+    list-style: disc;
+}
+
+/* Responsive adjustments for Download page */
+@media (max-width: 992px) {
+    .hero-download h1 { font-size: 3.2rem; }
+    .hero-download p { font-size: 1.1rem; }
+    .download-buttons .btn { font-size: 1.1rem; padding: 12px 20px; }
+    .platform-section h3 { font-size: 1.8rem; }
+    .requirements-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+}
+
+@media (max-width: 768px) {
+    .hero-download { min-height: 450px; padding: 60px 0; }
+    .hero-download h1 { font-size: 2.8rem; }
+    .hero-download p { font-size: 1rem; }
+    .download-buttons .btn { font-size: 1rem; padding: 10px 18px; gap: 8px; }
+    .download-buttons .btn img { height: 20px; }
+    .platform-section h3 { font-size: 1.6rem; }
+    .platform-section ol { font-size: 1rem; }
+    .req-item h3 { font-size: 1.6rem; }
+}
+
+@media (max-width: 480px) {
+    .hero-download { min-height: 380px; padding: 40px 0; }
+    .hero-download h1 { font-size: 2rem; }
+    .hero-download p { font-size: 0.9rem; margin-bottom: 20px; }
+    .download-buttons .btn { /* Кнопки в столбик на очень маленьких */ max-width: 300px; margin: 0 auto;}
+    .download-buttons { flex-direction: column; align-items: center; } /* Выравниваем в столбик */
+    .platform-section { padding: 20px; }
+    .platform-section ol { padding-left: 15px; }
+    .req-item { padding: 20px; }
+}
+
+/* ===================================================
+   REGISTRATION PAGE SPECIFIC STYLES
+   =================================================== */
+
+.hero-registration {
+    background-image: url('https://cdn.jsdelivr.net/gh/files2026/oks4@main/hero-reg.webp');
+    min-height: 550px;
+}
+
+.registration-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.registration-steps-list ol {
+    list-style: none;
+    padding: 0;
+    counter-reset: step-counter;
+}
+
+.registration-steps-list li {
+    position: relative;
+    padding-left: 50px;
+    margin-bottom: 30px;
+}
+
+.registration-steps-list li::before {
+    counter-increment: step-counter;
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 35px;
+    height: 35px;
+    background-color: var(--accent-color);
+    color: white;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.registration-steps-list h4 {
+    font-size: 1.5rem;
+    margin: 0 0 5px 0;
+    color: var(--text-color);
+}
+
+.registration-steps-list p {
+    margin: 0;
+    color: #ccc;
+}
+
+.registration-image img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: block;
+    margin: 0 auto;
+}
+
+.image-caption {
+    font-size: 0.9rem;
+    color: #aaa;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.bonus-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.bonus-option {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.bonus-option h3 {
+    color: var(--accent-color);
+}
+
+/* Responsive adjustments for Registration page */
+@media (max-width: 768px) {
+    .registration-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .registration-image {
+        order: -1; /* Ставим картинку над текстом */
+    }
+    .bonus-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===================================================
+   BONUS PAGE SPECIFIC STYLES
+   =================================================== */
+
+.hero-bonus {
+    background-image: url('https://cdn.jsdelivr.net/gh/files2026/oks4@main/hero-bonus.webp');
+}
+
+.bonus-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.bonus-option {
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.bonus-option h3 {
+    color: var(--accent-color);
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.bonus-option p {
+    color: #ccc;
+    font-size: 1.1rem;
+}
+
+/* Стили для страницы регистрации, которые мы повторно используем здесь */
+.registration-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.registration-steps-list ol {
+    list-style: none;
+    padding: 0;
+    counter-reset: step-counter;
+}
+
+.registration-steps-list li {
+    position: relative;
+    padding-left: 50px;
+    margin-bottom: 30px;
+}
+
+.registration-steps-list li::before {
+    counter-increment: step-counter;
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 35px;
+    height: 35px;
+    background-color: var(--accent-color);
+    color: white;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.registration-steps-list h4 {
+    font-size: 1.5rem;
+    margin: 0 0 5px 0;
+    color: var(--text-color);
+}
+
+.registration-steps-list p {
+    margin: 0;
+    color: #ccc;
+}
+
+.registration-image img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: block;
+    margin: 0 auto;
+}
+
+.image-caption {
+    font-size: 0.9rem;
+    color: #aaa;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* Адаптивность для страницы бонусов */
+@media (max-width: 768px) {
+    .bonus-options {
+        grid-template-columns: 1fr;
+    }
+    .registration-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .registration-image {
+        order: -1;
+    }
+}
+
+/* ===================================================
+   PLAY PAGE SPECIFIC STYLES
+   =================================================== */
+
+.hero-play {
+    background-image: url('https://cdn.jsdelivr.net/gh/files2026/oks4@main/hero-play.webp');
+}
+
+.play-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.guide-item {
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+}
+
+.guide-item img {
+    height: 80px; /* Иконки шагов как на главной */
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.1));
+}
+
+.guide-item h3 {
+    font-size: 1.6rem;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+.guide-item p {
+    font-size: 1rem;
+    color: #ccc;
+}
+
+.game-format-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.game-format-item {
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+}
+
+.game-format-item img {
+    width: 100%;
+    max-width: 350px; /* Ограничиваем размер изображения */
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+.game-format-item h3 {
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.game-format-item p {
+    font-size: 1.1rem;
+    color: #ccc;
+}
+
+.tips-list {
+    max-width: 800px;
+    margin: 50px auto 0 auto;
+    padding-left: 25px;
+    color: #ccc;
+    font-size: 1.1rem;
+}
+
+.tips-list li {
+    margin-bottom: 15px;
+    list-style: disc;
+}
+
+.tips-list li strong {
+    color: var(--accent-color);
+}
+
+/* Адаптивность для страницы "Как играть" */
+@media (max-width: 992px) {
+    .hero-play h1 { font-size: 3.2rem; }
+    .hero-play p { font-size: 1.1rem; }
+    .play-guide-grid, .game-format-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-play { min-height: 450px; padding: 60px 0; }
+    .hero-play h1 { font-size: 2.8rem; }
+    .hero-play p { font-size: 1rem; }
+    .play-guide-grid, .game-format-grid {
+        grid-template-columns: 1fr;
+    }
+    .game-format-item img {
+        max-width: 100%; /* Убираем max-width для мелких экранов, чтобы заполнить доступное пространство */
+    }
+}
